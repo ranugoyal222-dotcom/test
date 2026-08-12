@@ -1,0 +1,40 @@
+-- Creates the application database on an existing PostgreSQL server.
+-- Tables are created automatically by the API on startup, but the DDL below
+-- documents the intended schema (every table has a UUID primary key `id`).
+--
+--   psql -U postgres -h localhost -f setup_database.sql
+
+CREATE DATABASE social;
+
+-- \c social
+--
+-- CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+--
+-- CREATE TABLE users (
+--   id            uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+--   name          varchar(120)  NOT NULL,
+--   username      varchar(50)   NOT NULL UNIQUE,
+--   email         varchar(255)  NOT NULL UNIQUE,
+--   password_hash varchar(255)  NOT NULL,
+--   created_at    timestamptz   NOT NULL DEFAULT now()
+-- );
+--
+-- CREATE TABLE posts (
+--   id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+--   content    text NOT NULL,
+--   user_id    uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--   created_at timestamptz NOT NULL DEFAULT now()
+-- );
+--
+-- CREATE TABLE follower_info (
+--   id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+--   follower_id  uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--   following_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+--   created_at   timestamptz NOT NULL DEFAULT now(),
+--   UNIQUE (follower_id, following_id)
+-- );
+--
+-- CREATE INDEX idx_posts_user_id        ON posts (user_id);
+-- CREATE INDEX idx_posts_created_at     ON posts (created_at);
+-- CREATE INDEX idx_follower_info_fid    ON follower_info (follower_id);
+-- CREATE INDEX idx_follower_info_fing   ON follower_info (following_id);
